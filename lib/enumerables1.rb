@@ -1,3 +1,4 @@
+require "byebug"
 # EASY
 
 # Define a method that returns an array of only the even numbers in its argument
@@ -41,9 +42,15 @@ end
 # 2, 4, 8, 16) and the others have fewer than five factors. Consider writing a
 # helper method num_factors
 def at_least_n_factors(numbers, n)
+    numbers.select{|num| num_factors(num).length >= n}
 end
 
-def num_factors(number)
+def num_factors(num)
+    factors = []
+    num.times do |i|
+        factors.push(i + 1) if num % (i+1) == 0
+    end
+    factors
 end
 
 # HARD
@@ -52,9 +59,12 @@ end
 # words whose vowels appear in order. You may wish to write a helper method:
 # ordered_vowel_word?
 def ordered_vowel_words(words)
+    words.select{|word| ordered_vowel_word?(word)}
 end
 
 def ordered_vowel_word?(word)
+    vowel_arr = word.chars.select{|ltr| "aeiou".include? ltr.downcase}
+    vowel_arr == vowel_arr.sort
 end
 
 # Given an array of numbers, return an array of all the products remaining when
@@ -70,7 +80,10 @@ end
 # 10, because you take out 3, leaving 1 * 2 * 5 6, because you take out 5,
 # leaving 1 * 2 * 3
 def products_except_me(numbers)
+    total_product = array_product(numbers)
+    numbers.map{|num| total_product / num }
 end
 
 def array_product(array)
+    array.reduce(:*)
 end

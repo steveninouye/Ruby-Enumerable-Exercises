@@ -33,7 +33,7 @@ end
 # the actual retail price without going over that price. Assume there is always
 # at least one bid below the retail price.
 def price_is_right(bids, actual_retail_price)
-    bids.sort.select{|num| num <= actual_retail_price}[-1]
+    bids.select{|num| num <= actual_retail_price}.max
 end
 
 # Given an array of numbers, return an array of those numbers that have at least
